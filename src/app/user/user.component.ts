@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 
 import { DUMMY_USERS } from '../dummy-users';
 
@@ -10,18 +10,19 @@ import { DUMMY_USERS } from '../dummy-users';
   styleUrl: './user.component.css',
 })
 export class UserComponent {
-  selectedUser = DUMMY_USERS[Math.floor(Math.random() * DUMMY_USERS.length)];
+  selectedUser = signal(
+    DUMMY_USERS[Math.floor(Math.random() * DUMMY_USERS.length)]
+  );
 
-  get imagePath() {
-    return '/users/' + this.selectedUser.avatar;
-  }
+  imagePath = computed(() => '/users/' + this.selectedUser().avatar);
 
   onSelectUser() {
     const filteredDummyUsers = DUMMY_USERS.filter(
-      (u) => u.id != this.selectedUser.id
+      (u) => u.id != this.selectedUser().id
     );
 
-    this.selectedUser =
-      filteredDummyUsers[Math.floor(Math.random() * filteredDummyUsers.length)];
+    this.selectedUser.set(
+      filteredDummyUsers[Math.floor(Math.random() * filteredDummyUsers.length)]
+    );
   }
 }
