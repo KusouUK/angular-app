@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
 
 @Component({
   selector: 'app-tasks',
@@ -9,5 +8,5 @@ import { DUMMY_USERS } from '../dummy-users';
   styleUrl: './tasks.component.css'
 })
 export class TasksComponent {
-  @Input({ required: true }) name!: string;
+  @Input({ required: true }) name?: string;
 }
